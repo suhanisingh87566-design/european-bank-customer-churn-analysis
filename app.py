@@ -10,7 +10,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("/content/drive/MyDrive/European_Bank_Dashboard_Data.csv")
+    return pd.read_csv("European_Bank_Dashboard_Data.csv")
 
 df = load_data()
 
