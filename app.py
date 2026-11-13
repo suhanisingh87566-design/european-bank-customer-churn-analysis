@@ -16,22 +16,20 @@ def load_data():
 
     url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
 
-    headers = {
+        headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.raw"
     }
 
     response = requests.get(url, headers=headers, timeout=30)
-        if response.status_code != 200:
+
+    if response.status_code != 200:
         st.error(f"GitHub Error {response.status_code}: {response.text}")
         st.stop()
 
     return pd.read_csv(io.BytesIO(response.content))
 
-    return pd.read_csv(io.BytesIO(response.content))
-
 df = load_data()
-
 # SIDEBAR FILTERS
 
 st.sidebar.title("Dashboard Filters")
