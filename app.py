@@ -22,7 +22,9 @@ def load_data():
     }
 
     response = requests.get(url, headers=headers, timeout=30)
-    response.raise_for_status()
+    if response.status_code != 200:
+    st.error(f"GitHub Error {response.status_code}: {response.text}")
+    st.stop()
 
     return pd.read_csv(io.BytesIO(response.content))
 
