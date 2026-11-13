@@ -14,14 +14,15 @@ st.set_page_config(
 def load_data():
     token = st.secrets["GITHUB_TOKEN"]
 
+    st.write("Token loaded:", bool(token))
+
     url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
 
     headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.raw"
     }
-        st.write("Token loaded:", bool(token))
-    st.write("Token prefix:", token[:4])
+
     repo_check = requests.get(
         "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
         headers={
@@ -34,6 +35,7 @@ def load_data():
     if repo_check.status_code != 200:
         st.error(f"Repository Access Error {repo_check.status_code}: {repo_check.text}")
         st.stop()
+
     response = requests.get(url, headers=headers, timeout=30)
 
     if response.status_code != 200:
