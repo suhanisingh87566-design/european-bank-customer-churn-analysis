@@ -1,6 +1,8 @@
 
 import streamlit as st
 import pandas as pd
+import requests
+import io
 
 st.set_page_config(
     page_title="European Bank Customer Analytics",
@@ -10,7 +12,19 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("European_Bank_Dashboard_Data.csv")
+    token = st.secrets["GITHUB_TOKEN"]
+
+    url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github.raw"
+    }
+
+    response = requests.get(url, headers=headers, timeout=30)
+    response.raise_for_status()
+
+    return pd.read_csv(io.BytesIO(response.content))
 
 df = load_data()
 
