@@ -16,7 +16,7 @@ def load_data():
 
     url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
 
-        headers = {
+    headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.raw"
     }
@@ -28,6 +28,7 @@ def load_data():
         st.stop()
 
     return pd.read_csv(io.BytesIO(response.content))
+
 
 df = load_data()
 # SIDEBAR FILTERS
