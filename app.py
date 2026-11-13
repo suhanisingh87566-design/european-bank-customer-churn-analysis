@@ -20,6 +20,8 @@ def load_data():
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.raw"
     }
+        st.write("Token loaded:", bool(token))
+    st.write("Token prefix:", token[:4])
     repo_check = requests.get(
         "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
         headers={
