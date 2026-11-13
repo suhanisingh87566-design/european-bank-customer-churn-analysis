@@ -20,7 +20,18 @@ def load_data():
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github.raw"
     }
+    repo_check = requests.get(
+        "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json"
+        },
+        timeout=30
+    )
 
+    if repo_check.status_code != 200:
+        st.error(f"Repository Access Error {repo_check.status_code}: {repo_check.text}")
+        st.stop()
     response = requests.get(url, headers=headers, timeout=30)
 
     if response.status_code != 200:
