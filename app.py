@@ -27,7 +27,8 @@ def load_data():
         "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
         headers={
             "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json"
+            "Accept": "application/vnd.github+json",
+"X-GitHub-Api-Version": "2022-11-28"
         },
         timeout=30
     )
