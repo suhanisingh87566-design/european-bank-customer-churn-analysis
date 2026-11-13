@@ -14,8 +14,6 @@ st.set_page_config(
 def load_data():
     token = st.secrets["GITHUB_TOKEN"]
 
-    st.write("Token loaded:", bool(token))
-
     url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
 
     headers = {
@@ -23,19 +21,22 @@ def load_data():
         "Accept": "application/vnd.github.raw"
     }
 
-    repo_check = requests.get(
-        "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
+    user_check = requests.get(
+        "https://api.github.com/user",
         headers={
             "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
-"X-GitHub-Api-Version": "2022-11-28"
+            "X-GitHub-Api-Version": "2022-11-28"
         },
         timeout=30
     )
 
-    if repo_check.status_code != 200:
-        st.error(f"Repository Access Error {repo_check.status_code}: {repo_check.text}")
+    if user_check.status_code != 200:
+        st.error(f"Authentication Error {user_check.status_code}: {user_check.text}")
         st.stop()
+
+    st.write("GitHub authenticated successfully.")
+    st.write("Authenticated username:", user_check.json().get("login"))
 
     response = requests.get(url, headers=headers, timeout=30)
 
