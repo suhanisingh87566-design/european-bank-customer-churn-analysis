@@ -11,6 +11,7 @@ st.set_page_config(
 )
 
 
+
 @st.cache_data
 def load_data():
     token = st.secrets["GITHUB_TOKEN"]
@@ -22,41 +23,8 @@ def load_data():
         "Accept": "application/vnd.github.raw"
     }
 
-    user_check = requests.get(
-        "https://api.github.com/user",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28"
-        },
-        timeout=30
-    )
-
-    if user_check.status_code != 200:
-        st.error(f"Authentication Error {user_check.status_code}: {user_check.text}")
-        st.stop()
-
-    st.write("GitHub authenticated successfully.")
-    st.write("Authenticated username:", user_check.json().get("login"))
-
-    repo_check = requests.get(
-        "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data.",
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28"
-        },
-        timeout=30
-    )
-
-    st.write("Repository access status:", repo_check.status_code)
-    st.write("Repository response:", repo_check.text)
-
     response = requests.get(url, headers=headers, timeout=30)
-
-    if response.status_code != 200:
-        st.error(f"GitHub Error {response.status_code}: {response.text}")
-        st.stop()
+    response.raise_for_status()
 
     return pd.read_csv(io.BytesIO(response.content))
 
