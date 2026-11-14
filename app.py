@@ -10,11 +10,12 @@ st.set_page_config(
     layout="wide"
 )
 
+
 @st.cache_data
 def load_data():
     token = st.secrets["GITHUB_TOKEN"]
 
-url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data./contents/European_Bank_Dashboard_Data.csv"
+    url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data./contents/European_Bank_Dashboard_Data.csv"
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -37,7 +38,7 @@ url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-privat
 
     st.write("GitHub authenticated successfully.")
     st.write("Authenticated username:", user_check.json().get("login"))
-    
+
     repo_check = requests.get(
         "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data.",
         headers={
@@ -61,6 +62,7 @@ url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-privat
 
 
 df = load_data()
+
 # SIDEBAR FILTERS
 
 st.sidebar.title("Dashboard Filters")
