@@ -14,7 +14,7 @@ st.set_page_config(
 def load_data():
     token = st.secrets["GITHUB_TOKEN"]
 
-    url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data/contents/European_Bank_Dashboard_Data.csv"
+url = "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data./contents/European_Bank_Dashboard_Data.csv"
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -39,7 +39,7 @@ def load_data():
     st.write("Authenticated username:", user_check.json().get("login"))
     
     repo_check = requests.get(
-        "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data",
+        "https://api.github.com/repos/suhanisingh87566-design/european-bank-private-data.",
         headers={
             "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
